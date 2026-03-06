@@ -1,57 +1,163 @@
 {
-    "name": "typewriter",
-    "displayName": "Typewriter",
-    "description": "Human like typing for GIFs and live demos. No more typos in front of an audience!",
-    "version": "1.0.1",
-    "publisher": "dansilver",
+    "name": "live-typewriter",
+    "displayName": "Live Typewriter",
+    "description": "Human like typing for live demos. No more typos in front of an audience!",
+    "version": "1.0.0",
+    "publisher": "Pavel-automation",
     "engines": {
-        "vscode": "^1.5.0"
+        "vscode": "^1.49.0"
     },
     "categories": [
         "Other"
     ],
     "activationEvents": [
         "onCommand:typewriter.playback",
-        "onCommand:typewriter.setTypewriter"
+        "onCommand:typewriter.setTypewriter",
+        "onView:typewriter.slotsView"
     ],
-    "main": "./out/src/extension",
-
-    "properties": {
-        "typewriter.TypingMinSpeed": {
-            "type": "number",
-            "default": 30,
-            "description": "Lower limit on how fast to type - randomized between this and max"
-        },
-        "typewriter.TypingMaxSpeed": {
-            "type": "number",
-            "default": 120,
-            "description": "Upper limit on how fast to type - randomized between min and this"
-        }
-    },
+    "type": "module",
+    "main": "./out/src/extension.js",
     "contributes": {
-        "commands": [{
-            "command": "typewriter.playback",
-            "title": "Typewriter: Play"
-        }, {
-            "command": "typewriter.setTypewriter",
-            "title": "Typewriter: Set from selection"
-        }, {
-            "command": "typewriter.pause",
-            "title": "Typewriter: Pause/Resume playback"
-        }]
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "typewriter-panel",
+                    "title": "Typewriter",
+                    "icon": "assets/typewriter-panel.svg"
+                }
+            ]
+        },
+        "views": {
+            "typewriter-panel": [
+                {
+                    "type": "webview",
+                    "id": "typewriter.slotsView",
+                    "name": "Typewriter Slots"
+                }
+            ]
+        },
+        "configuration": {
+            "title": "Typewriter",
+            "properties": {
+                "typewriter.TypingMinSpeed": {
+                    "type": "number",
+                    "default": 30,
+                    "description": "Lower limit on how fast to type - randomized between this and max"
+                },
+                "typewriter.TypingMaxSpeed": {
+                    "type": "number",
+                    "default": 120,
+                    "description": "Upper limit on how fast to type - randomized between min and this"
+                }
+            }
+        },
+        "commands": [
+            {
+                "command": "typewriter.playback",
+                "title": "Typewriter: Play"
+            },
+            {
+                "command": "typewriter.setTypewriter",
+                "title": "Typewriter: Set from selection"
+            },
+            {
+                "command": "typewriter.pause",
+                "title": "Typewriter: Pause/Resume playback"
+            },
+            {
+                "command": "typewriter.playSlot1",
+                "title": "Typewriter: Play slot 1"
+            },
+            {
+                "command": "typewriter.playSlot2",
+                "title": "Typewriter: Play slot 2"
+            },
+            {
+                "command": "typewriter.playSlot3",
+                "title": "Typewriter: Play slot 3"
+            },
+            {
+                "command": "typewriter.playSlot4",
+                "title": "Typewriter: Play slot 4"
+            },
+            {
+                "command": "typewriter.playSlot5",
+                "title": "Typewriter: Play slot 5"
+            },
+            {
+                "command": "typewriter.playSlot6",
+                "title": "Typewriter: Play slot 6"
+            },
+            {
+                "command": "typewriter.playSlot7",
+                "title": "Typewriter: Play slot 7"
+            },
+            {
+                "command": "typewriter.playSlot8",
+                "title": "Typewriter: Play slot 8"
+            },
+            {
+                "command": "typewriter.playSlot9",
+                "title": "Typewriter: Play slot 9"
+            }
+        ],
+        "keybindings": [
+            {
+                "key": "ctrl+shift+alt+1",
+                "command": "typewriter.playSlot1"
+            },
+            {
+                "key": "ctrl+shift+alt+2",
+                "command": "typewriter.playSlot2"
+            },
+            {
+                "key": "ctrl+shift+alt+3",
+                "command": "typewriter.playSlot3"
+            },
+            {
+                "key": "ctrl+shift+alt+4",
+                "command": "typewriter.playSlot4"
+            },
+            {
+                "key": "ctrl+shift+alt+5",
+                "command": "typewriter.playSlot5"
+            },
+            {
+                "key": "ctrl+shift+alt+6",
+                "command": "typewriter.playSlot6"
+            },
+            {
+                "key": "ctrl+shift+alt+7",
+                "command": "typewriter.playSlot7"
+            },
+            {
+                "key": "ctrl+shift+alt+8",
+                "command": "typewriter.playSlot8"
+            },
+            {
+                "key": "ctrl+shift+alt+9",
+                "command": "typewriter.playSlot9"
+            },
+            {
+                "key": "ctrl+shift+alt+p",
+                "command": "typewriter.pause"
+            }
+        ]
     },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",
         "compile": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "node ./node_modules/vscode/bin/test"
+        "test": "node ./node_modules/vscode/bin/test",
+        "build": "npx --yes tsx scripts/create-vscode-extension.ts"
     },
     "devDependencies": {
-        "typescript": "^2.0.3",
-        "vscode": "^1.0.0",
-        "mocha": "^2.3.3",
-        "@types/node": "^6.0.40",
-        "@types/mocha": "^2.2.32"
+        "@types/mocha": "^10.0.0",
+        "@types/node": "^20.0.0",
+        "@types/vscode": "^1.49.0",
+        "@vscode/vsce": "^3.0.0",
+        "mocha": "^11.3.0",
+        "tsx": "^4.0.0",
+        "typescript": "^5.0.0"
     },
     "icon": "assets/1481463247_package_wordprocessing_iconfinder.png",
     "repository": {

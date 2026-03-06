@@ -1,11 +1,27 @@
-'use strict';
-
 import * as vscode from 'vscode';
-import {type, pause} from './humanTyper';
+import {type, pause} from './humanTyper.js';
+import {TypewriterPanelProvider} from './typewriterPanelProvider.js';
 
 let typewriterBuffer:string;
 
 export function activate(context: vscode.ExtensionContext) {
+
+    const panelProvider = new TypewriterPanelProvider(context);
+    context.subscriptions.push(
+        vscode.window.registerWebviewViewProvider(TypewriterPanelProvider.viewType, panelProvider)
+    );
+
+    for (let i = 1; i <= 9; i++) {
+        const slot = i;
+        context.subscriptions.push(
+            vscode.commands.registerCommand(`typewriter.playSlot${slot}`, () => {
+                const text = panelProvider.getSlotText(slot - 1);
+                if (!text) { return; }
+                const delays = panelProvider.getDelays();
+                type(text, delays.min, delays.max);
+            })
+        );
+    }
 
     let playTypewriterCmd = vscode.commands.registerCommand('typewriter.playback', () => {
 
