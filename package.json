@@ -151,11 +151,8 @@
         "build": "npx --yes tsx scripts/create-vscode-extension.ts"
     },
     "devDependencies": {
-        "@types/mocha": "^10.0.0",
         "@types/node": "^20.0.0",
         "@types/vscode": "^1.49.0",
-        "@vscode/vsce": "^3.0.0",
-        "mocha": "^11.3.0",
         "tsx": "^4.0.0",
         "typescript": "^5.0.0"
     },
